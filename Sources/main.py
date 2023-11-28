@@ -15,7 +15,8 @@ import player as pl
 screen_width = 800
 screen_height = 500
 
-moves = 0
+moves = 0    
+# Test git
 
 TIME_OUT = 190
 
@@ -145,6 +146,7 @@ btnPlay = pygame.transform.scale(orginal_btnPlay, (200, 100))
 btnMainMenu = pygame.image.load(os.getcwd() + '\\mainMenu.png')
 btnPlayer = pygame.image.load(os.getcwd() + '\\btnPlayer.png')
 btnBFS = pygame.image.load(os.getcwd() + '\\btn_BFS.png')
+btnDFS = pygame.image.load(os.getcwd() + '\\btn_DFS.png')
 btnAStar = pygame.image.load(os.getcwd() + '\\btnAstar.png')
 btnLeft = pygame.image.load(os.getcwd() + '\\left.png')
 btnRight = pygame.image.load(os.getcwd() + '\\right.png')
@@ -273,6 +275,10 @@ def sokoban():
             resized_btnAStar = pygame.transform.scale(btnAStar, (100, 50))
             btnAStar_rect = resized_btnAStar.get_rect(topleft=(120, 250))
             screen.blit(resized_btnAStar, (120, 250))
+
+            resized_btnDFS = pygame.transform.scale(btnDFS, (100, 50))
+            btnDFS_rect = resized_btnDFS.get_rect(topleft=(120, 300))
+            screen.blit(resized_btnDFS, (120, 300))
 
             # screen.blit(resized_btnMainMenu, (0, 0))
             if 0 <= mapNumber < len(maps):
