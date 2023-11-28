@@ -10,6 +10,7 @@ import random
 from tkinter import messagebox
 import astar
 import bfs
+import dfs
 import player as pl
 
 screen_width = 800
@@ -298,6 +299,9 @@ def sokoban():
                 print("AStar")
                 loadingGame()
                 list_board = astar.AStar_Search(maps[mapNumber], list_check_point)
+            elif algorithm == "DFS":
+                print("DFS")
+                list_board = dfs.DFS_Search(maps[mapNumber], list_check_point)
             else:
                 print("BFS")
                 list_board = bfs.BFS_search(maps[mapNumber], list_check_point)
@@ -343,6 +347,9 @@ def sokoban():
             if (algorithm == "BFS"):
                 renderMap(list_board[0][currentState])
                 currentState = currentState + 1
+            if (algorithm == "DFS"):
+                renderMap(list_board[0][currentState])
+                currentState = currentState + 1
             if currentState == stateLenght:
                 sceneState = "end"
                 found = True
@@ -375,6 +382,9 @@ def sokoban():
                 elif btnAStar_rect.collidepoint(mouse_x, mouse_y):
                     sceneState = "executing"
                     algorithm = "AStar"
+                elif btnDFS_rect.collidepoint(mouse_x, mouse_y):
+                    sceneState = "executing"
+                    algorithm = "DFS"
                 elif btnLeft_rect.collidepoint(mouse_x, mouse_y):
                     if mapNumber > 0:
                         mapNumber = mapNumber - 1
