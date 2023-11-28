@@ -278,20 +278,20 @@ def sokoban():
             screen.blit(resized_btnBFS, (120, 200))
 
             resized_btnAStar = pygame.transform.scale(btnAStar, (100, 50))
-            btnAStar_rect = resized_btnAStar.get_rect(topleft=(120, 250))
-            screen.blit(resized_btnAStar, (120, 250))
+            btnAStar_rect = resized_btnAStar.get_rect(topleft=(120, 400))
+            screen.blit(resized_btnAStar, (120, 400))
 
             resized_btnDFS = pygame.transform.scale(btnDFS, (100, 50))
-            btnDFS_rect = resized_btnDFS.get_rect(topleft=(120, 300))
-            screen.blit(resized_btnDFS, (120, 300))
+            btnDFS_rect = resized_btnDFS.get_rect(topleft=(120, 250))
+            screen.blit(resized_btnDFS, (120, 250))
 
             resized_btnUCS = pygame.transform.scale(btnUCS, (100, 50))
-            btnUCS_rect = resized_btnUCS.get_rect(topleft=(120, 350))
-            screen.blit(resized_btnUCS, (120, 350))
+            btnUCS_rect = resized_btnUCS.get_rect(topleft=(120, 300))
+            screen.blit(resized_btnUCS, (120, 300))
 
             resized_btnGreedy = pygame.transform.scale(btnGreedy, (100, 50))
-            btnGreedy_rect = resized_btnGreedy.get_rect(topleft=(120, 400))
-            screen.blit(resized_btnGreedy, (120, 400))
+            btnGreedy_rect = resized_btnGreedy.get_rect(topleft=(120, 350))
+            screen.blit(resized_btnGreedy, (120, 350))
 
             # screen.blit(resized_btnMainMenu, (0, 0))
             if 0 <= mapNumber < len(maps):
@@ -350,7 +350,6 @@ def sokoban():
                 new_list_board = pl.Player(list_board, list_check_point, pygame)
                 list_board = new_list_board
                 if list_board == True:
-                    print(sceneState)
                     sceneState = "end"
                     list_board = list_board_win
                     found = True
