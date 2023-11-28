@@ -345,7 +345,7 @@ def sokoban():
         
 
         if sceneState == "playing":
-            clock.tick(30)
+            clock.tick(6)
             if(algorithm == "Player"):
                 new_list_board = pl.Player(list_board, list_check_point, pygame)
                 list_board = new_list_board
