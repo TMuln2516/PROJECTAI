@@ -1,12 +1,12 @@
-import support_function as spf 
+import support_function as spf
 import time
 from queue import PriorityQueue
 
-def AStar_Search(board, list_check_point):
+def Greedy_Search(board, list_check_point):
     start_time = time.time()
-    ''' A* SEARCH SOLUTION '''
+    ''' GREEDY SEARCH SOLUTION '''
     ''' IF START BOARD IS GOAL OR DON'T HAVE CHECK POINT '''
-    if spf.check_win(board,list_check_point):
+    if spf.check_win(board, list_check_point):
         print("Found win")
         return [board]
     ''' INITIALIZE START STATE '''
