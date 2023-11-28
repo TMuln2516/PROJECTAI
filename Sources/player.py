@@ -8,7 +8,7 @@ import main
 
 
 
-def Player(board, list_check_point, pygame):
+def Player(board, list_check_point, mapNumber1, pygame):
     if spf.check_win(board, list_check_point):
         print("Found win")
         return True
@@ -27,6 +27,13 @@ def Player(board, list_check_point, pygame):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    main.sceneState = "init"
+                    main.mapNumber = mapNumber1
+                    main.initGame(board)
+                    main.sokoban()
+                    return board
+                
                 if event.key == pygame.K_UP:
                     next_pos = [cur_pos[0] - 1,cur_pos[1]]
 
@@ -49,10 +56,6 @@ def Player(board, list_check_point, pygame):
                 list_state.append(new_state)
                 s_queue.put(new_state)
 
-                if event.key == pygame.K_SPACE:
-                    main.sceneState = "init"
-                    main.initGame(board)
-                    return board
         pygame.display.update()
 
     return new_board

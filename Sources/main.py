@@ -19,7 +19,6 @@ screen_width = 800
 screen_height = 500
 
 moves = 0    
-# Test git
 
 TIME_OUT = 190
 
@@ -265,10 +264,6 @@ def sokoban():
             btnRight_rect = resized_btnRight.get_rect(topleft=(230, 100))
             screen.blit(resized_btnRight, (230, 100))
 
-            resized_btnGiveUp = pygame.transform.scale(btnreStart,  (50, 50))
-            btnGiveUp_rect = resized_btnGiveUp.get_rect(topleft=(750, 0))
-            screen.blit(resized_btnGiveUp, (750, 0))
-
             resized_btnPlayer = pygame.transform.scale(btnPlayer, (100, 50))
             btnPlayer_rect = resized_btnPlayer.get_rect(topleft=(120, 150)) 
             screen.blit(resized_btnPlayer, (120, 150))
@@ -345,10 +340,12 @@ def sokoban():
         
 
         if sceneState == "playing":
-            clock.tick(6)
+            # print(sceneState)
+            clock.tick(3)
             if(algorithm == "Player"):
-                new_list_board = pl.Player(list_board, list_check_point, pygame)
-                list_board = new_list_board
+                mapNumber1 = mapNumber
+                new_list_boards = pl.Player(list_board, list_check_point, mapNumber1, pygame)
+                list_board = new_list_boards
                 if list_board == True:
                     sceneState = "end"
                     list_board = list_board_win
@@ -385,12 +382,6 @@ def sokoban():
                     sceneState = "init"
                     print(sceneState)
                     print(image_rect)
-            elif sceneState == "playing" and algorithm == "Player":
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_x, mouse_y = pygame.mouse.get_pos()
-                    if btnGiveUp_rect.collidepoint(mouse_x, mouse_y):
-                        sceneState = "init"
-                        # print("aaaaaaaaaaa")
             elif event.type == pygame.MOUSEBUTTONDOWN and sceneState == "init":
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if btnPlayer_rect.collidepoint(mouse_x, mouse_y):
@@ -436,9 +427,13 @@ def initGame(map):
     mapRect = mapText.get_rect(center=(170, 130))
     screen.blit(mapText, mapRect)
 
+    # Dòng văn bản hiển thị "Nhấn Space để Restart"
+    restartSize = pygame.font.Font('gameFont.ttf', 30)
+    restartText = restartSize.render("Press Space to Restart", True, COLOR)
+    restartRect = restartText.get_rect(center=(520, 30))
+    screen.blit(restartText, restartRect)
+
     renderMap(map)
-
-
 
 def loadingGame():
 
