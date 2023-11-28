@@ -327,7 +327,7 @@ def sokoban():
             if len(list_board) > 0:
                 sceneState = "playing"
                 stateLenght = len(list_board[0])
-                currentState = 0
+                currentState = 0 
             else:
                 sceneState = "end"
                 found = False
@@ -389,8 +389,8 @@ def sokoban():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     if btnGiveUp_rect.collidepoint(mouse_x, mouse_y):
-                        # sceneState = "init"
-                        print("aaaaaaaaaaa")
+                        sceneState = "init"
+                        # print("aaaaaaaaaaa")
             elif event.type == pygame.MOUSEBUTTONDOWN and sceneState == "init":
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if btnPlayer_rect.collidepoint(mouse_x, mouse_y):
