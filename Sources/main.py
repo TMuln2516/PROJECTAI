@@ -11,6 +11,8 @@ from tkinter import messagebox
 import astar
 import bfs
 import dfs
+import greedy
+import ucs
 import player as pl
 
 screen_width = 800
@@ -149,6 +151,8 @@ btnPlayer = pygame.image.load(os.getcwd() + '\\btnPlayer.png')
 btnBFS = pygame.image.load(os.getcwd() + '\\btn_BFS.png')
 btnDFS = pygame.image.load(os.getcwd() + '\\btn_DFS.png')
 btnAStar = pygame.image.load(os.getcwd() + '\\btnAstar.png')
+btnUCS = pygame.image.load(os.getcwd() + '\\btn_UCS.png')
+btnGreedy = pygame.image.load(os.getcwd() + '\\btn_Greedy.png')
 btnLeft = pygame.image.load(os.getcwd() + '\\left.png')
 btnRight = pygame.image.load(os.getcwd() + '\\right.png')
 btnreStart = pygame.image.load(os.getcwd() + '\\reStart.png')
@@ -274,12 +278,20 @@ def sokoban():
             screen.blit(resized_btnBFS, (120, 200))
 
             resized_btnAStar = pygame.transform.scale(btnAStar, (100, 50))
-            btnAStar_rect = resized_btnAStar.get_rect(topleft=(120, 250))
-            screen.blit(resized_btnAStar, (120, 250))
+            btnAStar_rect = resized_btnAStar.get_rect(topleft=(120, 400))
+            screen.blit(resized_btnAStar, (120, 400))
 
             resized_btnDFS = pygame.transform.scale(btnDFS, (100, 50))
-            btnDFS_rect = resized_btnDFS.get_rect(topleft=(120, 300))
-            screen.blit(resized_btnDFS, (120, 300))
+            btnDFS_rect = resized_btnDFS.get_rect(topleft=(120, 250))
+            screen.blit(resized_btnDFS, (120, 250))
+
+            resized_btnUCS = pygame.transform.scale(btnUCS, (100, 50))
+            btnUCS_rect = resized_btnUCS.get_rect(topleft=(120, 300))
+            screen.blit(resized_btnUCS, (120, 300))
+
+            resized_btnGreedy = pygame.transform.scale(btnGreedy, (100, 50))
+            btnGreedy_rect = resized_btnGreedy.get_rect(topleft=(120, 350))
+            screen.blit(resized_btnGreedy, (120, 350))
 
             # screen.blit(resized_btnMainMenu, (0, 0))
             if 0 <= mapNumber < len(maps):
@@ -302,6 +314,12 @@ def sokoban():
             elif algorithm == "DFS":
                 print("DFS")
                 list_board = dfs.DFS_Search(maps[mapNumber], list_check_point)
+            elif algorithm == "UCS":
+                print("UCS")
+                list_board = ucs.UCS_Search(maps[mapNumber], list_check_point)
+            elif algorithm == "Greedy":
+                print("Greedy")
+                list_board = greedy.Greedy_Search(maps[mapNumber], list_check_point)
             else:
                 print("BFS")
                 list_board = bfs.BFS_search(maps[mapNumber], list_check_point)
@@ -327,7 +345,7 @@ def sokoban():
         
 
         if sceneState == "playing":
-            clock.tick(4)
+            clock.tick(30)
             if(algorithm == "Player"):
                 new_list_board = pl.Player(list_board, list_check_point, pygame)
                 list_board = new_list_board
@@ -339,8 +357,6 @@ def sokoban():
                     renderMap(list_board)
                     list_board_win = list_board
             if (algorithm == "AStar"):
-                loading = False
-                loadingGame()
                 renderMap(list_board[0][currentState])
                 currentState = currentState + 1
                 # load_init()
@@ -348,6 +364,12 @@ def sokoban():
                 renderMap(list_board[0][currentState])
                 currentState = currentState + 1
             if (algorithm == "DFS"):
+                renderMap(list_board[0][currentState])
+                currentState = currentState + 1
+            if (algorithm == "UCS"):
+                renderMap(list_board[0][currentState])
+                currentState = currentState + 1
+            if (algorithm == "Greedy"):
                 renderMap(list_board[0][currentState])
                 currentState = currentState + 1
             if currentState == stateLenght:
@@ -363,10 +385,12 @@ def sokoban():
                     sceneState = "init"
                     print(sceneState)
                     print(image_rect)
-            elif event.type == pygame.MOUSEBUTTONDOWN and sceneState == "playing":
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-                if btnGiveUp_rect.collidepoint(mouse_x, mouse_y):
-                    sceneState = "init"
+            elif sceneState == "playing" and algorithm == "Player":
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    if btnGiveUp_rect.collidepoint(mouse_x, mouse_y):
+                        # sceneState = "init"
+                        print("aaaaaaaaaaa")
             elif event.type == pygame.MOUSEBUTTONDOWN and sceneState == "init":
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if btnPlayer_rect.collidepoint(mouse_x, mouse_y):
@@ -385,6 +409,12 @@ def sokoban():
                 elif btnDFS_rect.collidepoint(mouse_x, mouse_y):
                     sceneState = "executing"
                     algorithm = "DFS"
+                elif btnUCS_rect.collidepoint(mouse_x, mouse_y):
+                    sceneState = "executing"
+                    algorithm = "UCS"
+                elif btnGreedy_rect.collidepoint(mouse_x, mouse_y):
+                    sceneState = "executing"
+                    algorithm = "Greedy"
                 elif btnLeft_rect.collidepoint(mouse_x, mouse_y):
                     if mapNumber > 0:
                         mapNumber = mapNumber - 1
