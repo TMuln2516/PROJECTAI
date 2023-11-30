@@ -17,16 +17,6 @@ def BFS_search(board, list_check_point):
         now_state = list_visit.popleft()
         cur_pos = spf.find_position_player(now_state.board)
 
-        # Uncomment to use if necessary
-        '''
-        time.sleep(1)
-        clear = lambda: os.system('cls')
-        clear()
-        print_matrix(now_state.board)
-        print("State visited: {}".format(len(list_state)))
-        print("State in queue: {}".format(len(list_visit)))
-        '''
-
         list_can_move = spf.get_next_pos(now_state.board, cur_pos)
 
         for next_pos in list_can_move:

@@ -52,10 +52,8 @@ def get_boards():
 
     for file in sorted_files:
         file_path = os.path.join(path_board, file)
-        print(file_path)
         board = get_board(file_path)
         list_boards.append(board)
-        print(board)
 
     return list_boards
     
@@ -68,7 +66,6 @@ def get_check_points():
 
     for file in file_list:
         file_path = f"{path_checkpoint}\{file}"
-        print(file_path)
         check_point = get_pair(file_path)
         list_check_point.append(check_point)
     
@@ -219,6 +216,7 @@ mapNumber = 0
 algorithm = "Player"
 sceneState = "begin"
 loading = False
+time = 0
 
 def sokoban():
     running = True
@@ -228,6 +226,7 @@ def sokoban():
     global list_board
     global mapNumber
     global moves
+    global time
     moves = 0
     stateLenght = 0
     currentState = 0
@@ -341,7 +340,7 @@ def sokoban():
 
         if sceneState == "playing":
             # print(sceneState)
-            clock.tick(3)
+            clock.tick(10)
             if(algorithm == "Player"):
                 mapNumber1 = mapNumber
                 new_list_boards = pl.Player(list_board, list_check_point, mapNumber1, pygame)
@@ -380,15 +379,11 @@ def sokoban():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if image_rect.collidepoint(mouse_x, mouse_y):
                     sceneState = "init"
-                    print(sceneState)
-                    print(image_rect)
             elif event.type == pygame.MOUSEBUTTONDOWN and sceneState == "init":
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if btnPlayer_rect.collidepoint(mouse_x, mouse_y):
-                    print(btnPlayer_rect)
                     sceneState = "executing"
                     algorithm = "Player"
-                    print(sceneState)
                 elif mainMenu_rect.collidepoint(mouse_x, mouse_y):
                     sceneState = "begin"
                 elif btnBFS_rect.collidepoint(mouse_x, mouse_y):
@@ -456,7 +451,6 @@ def foundGame(map):
 
     # Check if the list is not empty and the index is within the valid range
     if list_board and 0 <= stateLength - 1 < len(list_board[0]):
-        print(stateLength)
         # Lấy kích thước của ảnh "solved"
         solved_width, solved_height = solved.get_size()
 
@@ -467,6 +461,8 @@ def foundGame(map):
         renderMap(map)
         screen.blit(solved, (solved_x, solved_y))
         pygame.display.flip()
+
+        print("Số bước thực hiện của", algorithm, "là:", stateLength )
 
         waiting_for_key = True
         while waiting_for_key:
@@ -479,8 +475,6 @@ def foundGame(map):
 
         mapNumber += 1
         sceneState = 'init'
-        print(mapNumber)
-        print(stateLength)
 
 
 def notfoundGame():
